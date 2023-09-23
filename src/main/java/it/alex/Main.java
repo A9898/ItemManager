@@ -10,8 +10,8 @@ public class Main {
 
        ItemDAO itemdao = new ItemDAO(DBConnection.getConnection());
 
-       itemdao.selectByIdItem();
-
+       //itemdao.selectByIdItem();
+        itemdao.addItem();
        System.out.println();
        DBConnection.closeConnection();
     }

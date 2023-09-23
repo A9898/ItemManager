@@ -15,11 +15,26 @@ public class ItemDAO {
     }
 
     // Metodo per aggiungere un nuovo oggetto nel database
-    public void addItem(Item item) {
+    public void addItem() throws SQLException {
+        Scanner scan = new Scanner(System.in);
+        String QUERY = "INSERT INTO item (name,description,quantity,price,category) VALUES (?,?,?,?,?)";
+        PreparedStatement stmt = connection.prepareStatement(QUERY);
+
+        System.out.println("Inserisci il nome dell'item da aggiungere");
+        stmt.setString(1,scan.next());
+        System.out.println("Inserisci la desrizione dell'item da aggiungere");
+        stmt.setString(2,scan.next());
+        System.out.println("Inserisci la quantita' dell'item da aggiungere");
+        stmt.setInt(3,scan.nextInt());
+        System.out.println("Inserisci il prezzo dell'item da aggiungere");
+        stmt.setDouble(4,scan.nextDouble());
+        System.out.println("Inserisci la categoria dell'item da aggiungere");
+        stmt.setString(5,scan.next());
+        scan.close();
         // Implementazione per aggiungere l'oggetto nel database
 
+        stmt.executeUpdate();
         // Utilizza la connessione per eseguire una query di inserimento
-
     }
 
     // Metodo per modificare un oggetto esistente nel database
@@ -28,13 +43,13 @@ public class ItemDAO {
         // Utilizza la connessione per eseguire una query di aggiornamento
     }
 
-    // Metodo per modificare un oggetto esistente nel database
+    // Metodo per rimuovere un oggetto esistente nel database
     public void removeItem(Item item) {
-        // Implementazione per modificare l'oggetto nel database
-        // Utilizza la connessione per eseguire una query di aggiornamento
+        // Implementazione per rimuovere l'oggetto nel database
+        // Utilizza la connessione per eseguire una query di rimozione
     }
 
-
+    //METODO DI SELECT CHE ESTRAE TUTTI GLI ITEM PRESENTI NEL DB
     public void selectAll() throws SQLException {
         Statement stmt = connection.createStatement();
 
@@ -52,7 +67,7 @@ public class ItemDAO {
         }
 
     }
-
+    //METODO DI SELECT CHE ESTRAE L'ELEMENTO CHE CORRISPONDE ALL'ID INSERITO DALL'UTENTE
     public void selectByIdItem() throws SQLException {
         Scanner scan = new Scanner(System.in);
 
@@ -66,6 +81,7 @@ public class ItemDAO {
 
         //SET DELL ID INSERITO DALL UTENTE NELLA QUERY
         stmt.setInt(1,scan.nextInt());
+        scan.close();
 
         try{
             ResultSet rs = stmt.executeQuery();
