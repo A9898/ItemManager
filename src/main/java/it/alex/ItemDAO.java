@@ -3,7 +3,6 @@ package it.alex;
 import it.alex.Model.Item;
 
 import java.sql.*;
-import java.util.List;
 import java.util.Scanner;
 
 
@@ -34,19 +33,43 @@ public class ItemDAO {
         // Implementazione per aggiungere l'oggetto nel database
 
         stmt.executeUpdate();
-        // Utilizza la connessione per eseguire una query di inserimento
+
     }
 
     // Metodo per modificare un oggetto esistente nel database
-    public void updateItem(Item item) {
-        // Implementazione per modificare l'oggetto nel database
-        // Utilizza la connessione per eseguire una query di aggiornamento
+    public void updateItemById() throws SQLException {
+        Scanner scan = new Scanner(System.in);
+        String QUERY = "UPDATE item SET name = ? WHERE iditem = ?";
+
+        PreparedStatement stmt = connection.prepareStatement(QUERY);
+
+        System.out.println("Inserisci l'id dell'item che vuoi modificare");
+        stmt.setInt(2,scan.nextInt());
+        System.out.println("Inserisci il nuovo nome");
+        stmt.setString(1, scan.next());
+        scan.close();
+
+        // Implementazione per rimuovere l'oggetto nel database
+        stmt.executeUpdate();
+
     }
 
     // Metodo per rimuovere un oggetto esistente nel database
-    public void removeItem(Item item) {
+    public void removeItemById() throws SQLException {
+        Scanner scan = new Scanner(System.in);
+        String QUERY = "DELETE FROM item WHERE iditem = ?";
+
+        PreparedStatement stmt = connection.prepareStatement(QUERY);
+
+        //RICHIESTA INSERIMENTO ID DA PARTE UTENTE
+        System.out.println("Inserisci l'id dell'item che vuoi rimuovere");
+
+        //SET DELL ID INSERITO DALL UTENTE NELLA QUERY
+        stmt.setInt(1,scan.nextInt());
+        scan.close();
         // Implementazione per rimuovere l'oggetto nel database
-        // Utilizza la connessione per eseguire una query di rimozione
+
+        stmt.executeUpdate();
     }
 
     //METODO DI SELECT CHE ESTRAE TUTTI GLI ITEM PRESENTI NEL DB
@@ -64,6 +87,7 @@ public class ItemDAO {
             System.out.println("Quantity: " + rs.getInt("quantity"));
             System.out.println("Price: " + rs.getDouble("price"));
             System.out.println("Category: " + rs.getString("category"));
+            System.out.println();
         }
 
     }
@@ -91,6 +115,7 @@ public class ItemDAO {
             System.out.println("Quantity: " + rs.getInt("quantity"));
             System.out.println("Price: " + rs.getDouble("price"));
             System.out.println("Category: " + rs.getString("category"));
+            System.out.println();
         }
         catch (SQLException e){
             System.out.println("L'ID item inserito non corrisponde a nessun ID presente nel nostro DB");

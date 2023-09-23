@@ -7,8 +7,7 @@ public class DBConnection {
     static final String DB_URL = "jdbc:mysql://localhost:3306/inventory";
     static final String USER = "root";
     static final String PASS = "Bokunohero98";
-    static final String QUERY = "SELECT iditem, name, description, quantity, price, category FROM item";
-    static final String ADDQUERY = "INSERT INTO item VALUES (?,?,?,?,?,?)";
+
 
 
     public static Connection getConnection(){
@@ -20,6 +19,7 @@ public class DBConnection {
                 //CREAZIONE DEL DATABASE
                 connection = DriverManager.getConnection(DB_URL, USER, PASS);
                 System.out.println("Connessione al DB riuscita");
+                System.out.println();
             }
             catch (ClassNotFoundException e){
                 e.printStackTrace();

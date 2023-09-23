@@ -5,14 +5,19 @@ import java.sql.SQLException;
 public class Main {
     public static void main(String[] args) throws SQLException {
 
-       DBConnection.getConnection();
+       //DBConnection.getConnection();
 
 
        ItemDAO itemdao = new ItemDAO(DBConnection.getConnection());
 
-       //itemdao.selectByIdItem();
-        itemdao.addItem();
+       itemdao.selectAll();
+        // itemdao.addItem();
+        //itemdao.selectByIdItem();
+        //itemdao.removeItemById();
+        //itemdao.updateItemById();
+
        System.out.println();
+
        DBConnection.closeConnection();
     }
 }
